@@ -11,14 +11,14 @@
     font-style: bold;
 }
 form {
-    width: 700px; /* Ancho del formulario */
-    height: 900px; /* Altura del formulario */
+    width: 500px; /* Ancho del formulario */
+    height: 600px; /* Altura del formulario */
     background-color: whitesmoke;
     padding-top: 30px; /* Espacio superior más grande */
     margin: 50px auto;
     border-radius: 15px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-    text-align: center; /* Centrar todo el contenido del formulario */
+    /*text-align: center; /* Centrar todo el contenido del formulario */
 }
 
 h1 {
@@ -26,7 +26,8 @@ h1 {
     font-size: 36px; /* Aumenta el tamaño de fuente del título */
     margin-top: 30px;
     margin-bottom: 40px;
-    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    text-transform: uppercase;
+    text-align: center; /* Convierte el texto a mayúsculas */
 }
 
 input {
@@ -66,6 +67,8 @@ body {
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
+    justify-content: center;
+    align-items: center;
 }
 
 .icon-container {
@@ -82,8 +85,9 @@ body {
 /* Estilos para dispositivos más pequeños */
 @media (max-width: 400px) {
     form {
-        width: 100%;
+        width: 80%;
         padding: 20px;
+        height: 70%;
     }
 
     h1 {
