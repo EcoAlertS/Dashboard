@@ -1,0 +1,112 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "oduda", Sans-serif;;
+}
+@font-face{
+    font-family: 'oduda';
+    src: url(../fuente/Oduda-Bold-Demo.otf);
+    font-weight: bold;
+    font-style: bold;
+}
+form {
+    width: 700px; /* Ancho del formulario */
+    height: 900px; /* Altura del formulario */
+    background-color: whitesmoke;
+    padding-top: 30px; /* Espacio superior más grande */
+    margin: 50px auto;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Centrar todo el contenido del formulario */
+}
+
+h1 {
+    color: green;
+    font-size: 36px; /* Aumenta el tamaño de fuente del título */
+    margin-top: 30px;
+    margin-bottom: 40px;
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+}
+
+input {
+    font-size: 20px; /* Tamaño de fuente de los campos de entrada */
+    padding: 12px; /* Relleno dentro de los campos */
+    display: flex;
+    width: 90%; /* Ancho de los campos */
+    margin: 15px auto; /* Centrar los campos */
+}
+
+label {
+    color: green;
+    font-size: 24px; /* Tamaño de fuente de las etiquetas */
+    display: block;
+    margin: 20px;
+}
+
+input[type="button"] {
+    width: 120px; /* Ancho del botón */
+    margin-top: 40px; /* Espacio superior del botón */
+    font-size: 24px; /* Tamaño de fuente del botón */
+    display: block;
+    background-color: green; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 8px; /* Redondea las esquinas del botón */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno del botón */
+}
+
+input[type="button"]:hover {
+    background-color: darkgreen; /* Color al pasar el mouse */
+}
+
+body {
+    background-image: url('../img/fondo.png'); /* Ruta de la imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center; /* Centrar el contenedor del icono */
+    margin-bottom: 20px;
+}
+
+.icon-container img {
+    width: 100px; /* Aumenta el tamaño del logo */
+    height: 100px; /* Aumenta la altura del logo */
+}
+
+/* Estilos para dispositivos más pequeños */
+@media (max-width: 400px) {
+    form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px; /* Tamaño de fuente ajustado para pantallas pequeñas */
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 18px;
+    }
+
+    input {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    input[type="button"] {
+        width: 90px;
+        font-size: 18px;
+    }
+
+    .icon-container img {
+        width: 80px; /* Tamaño del logo ajustado para pantallas pequeñas */
+        height: 80px;
+    }
+}
