@@ -85,7 +85,7 @@ async function authenticatedFetch(url, options = {}) {
     
     if (!token || isTokenExpired(token)) {
         redirectToLogin("Sesión expirada");
-        throw new Error("Token no válido");
+        //throw new Error("Token no válido");
     }
 
     const defaultOptions = {
