@@ -30,12 +30,13 @@ async function verificarAutenticacion() {
     const token = localStorage.getItem("authToken");
     
     if (!token) {
-        throw new Error("No hay token disponible");
+        window.location.href = "index.html";
+        //throw new Error("No hay token disponible");
     }
 
     // Verificar primero si el token está expirado localmente
     if (isTokenExpired(token)) {
-        window.location.href = "index.html";
+        throw new Error("Token expirado");
     }
 
     const response = await fetch("https://svrecoalert-sql.onrender.com/verify-token", {
