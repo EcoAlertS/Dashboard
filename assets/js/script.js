@@ -35,7 +35,7 @@ async function verificarAutenticacion() {
 
     // Verificar primero si el token está expirado localmente
     if (isTokenExpired(token)) {
-        throw new Error("Token expirado");
+        window.location.href = "index.html";
     }
 
     const response = await fetch("https://svrecoalert-sql.onrender.com/verify-token", {
