@@ -9,6 +9,118 @@ const searchInput = document.getElementById('searchInput');
 let reports = []; // Variable global para almacenar los reportes cargados
 let currentFilter = null; // Variable para almacenar el filtro actual
 
+
+function isTokenExpired(token) {
+    if (!token) return true;
+    
+    try {
+        const [, payload] = token.split('.');
+        const decodedPayload = JSON.parse(atob(payload));
+        const currentTime = Math.floor(Date.now() / 1000);
+        
+        return decodedPayload.exp < currentTime;
+    } catch (e) {
+        console.error('Error al decodificar token:', e);
+        return true;
+    }
+}
+
+// Función para verificar autenticación
+async function verificarAutenticacion() {
+    const token = localStorage.getItem("authToken");
+    
+    if (!token) {
+        throw new Error("No hay token disponible");
+    }
+
+    // Verificar primero si el token está expirado localmente
+    if (isTokenExpired(token)) {
+        throw new Error("Token expirado");
+    }
+
+    const response = await fetch("https://svrecoalert-sql.onrender.com/verify-token", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Error de autenticación");
+    }
+
+    return await response.json();
+}
+
+// Función para manejar la redirección al login
+function redirectToLogin(message) {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("usuario");
+    alert(message || "Sesión finalizada. Por favor, inicie sesión nuevamente.");
+    window.location.href = "index.html";
+}
+
+// Inicialización del dashboard
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        // Verificar autenticación
+        const authData = await verificarAutenticacion();
+        //console.log("Sesión válida. Bienvenido:", authData.usuario);
+        
+        // Si la autenticación es exitosa, inicializar el dashboard
+        await fetchReports();
+        
+    } catch (error) {
+        console.error("Error de autenticación:", error.message);
+        redirectToLogin(error.message);
+    }
+});
+
+// Función para realizar peticiones autenticadas
+async function authenticatedFetch(url, options = {}) {
+    const token = localStorage.getItem("authToken");
+    
+    if (!token || isTokenExpired(token)) {
+        redirectToLogin("Sesión expirada");
+        throw new Error("Token no válido");
+    }
+
+    const defaultOptions = {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            ...options.headers
+        }
+    };
+
+    try {
+        const response = await fetch(url, {
+            ...options,
+            ...defaultOptions,
+            headers: {
+                ...defaultOptions.headers,
+                ...options.headers
+            }
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            if (response.status === 401) {
+                redirectToLogin(data.error);
+                throw new Error(data.error);
+            }
+            throw new Error(data.error || "Error en la petición");
+        }
+
+        return await response.json();
+    } catch (error) {
+        if (error.message.includes("Token")) {
+            redirectToLogin(error.message);
+        }
+        throw error;
+    }
+}
+
 function fetchReports() {
     fetch('https://svrecoalert-sql.onrender.com/reports')
         .then(response => {
