@@ -29,7 +29,7 @@ async function loguear() {
                 localStorage.setItem("usuario", data.usuario);
 
                 // Mostrar mensaje de éxito
-                alert("Inicio de sesión exitoso");
+                //alert("Inicio de sesión exitoso");
 
                 // Redireccionar al dashboard
                 window.location.href = "dashboard.html";
